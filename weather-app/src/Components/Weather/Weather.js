@@ -28,7 +28,8 @@ const Weather = () => {
       alert("Please enter City Name.");
       return;
     }
-    try {
+    try 
+    {
       const url = `${BASE_URL}?q=${city}&units=metric&appid=${API_KEY}`;
       const response = await fetch(url);
       const data = await response.json();
@@ -47,7 +48,9 @@ const Weather = () => {
         location: data.name,
         icon: icon
       });
-    } catch (error) {
+    } 
+    catch (error)
+    {
       console.log(error);
     }
   }, [API_KEY, BASE_URL]);
