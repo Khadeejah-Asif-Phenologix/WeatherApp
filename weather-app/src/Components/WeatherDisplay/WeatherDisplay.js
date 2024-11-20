@@ -6,7 +6,7 @@ import '../Weather/Weather.css';
 
 const WeatherDisplay = ({ weatherData }) => {
   if (!weatherData) {
-    return null; // If weatherData is null, render nothing
+    return null;
   }
 
   return (
