@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './Weather.css';
 import Clouds from '../../Assests/clouds.png';
 import Drizzle from '../../Assests/drizzle.png';
-import Humidity from '../../Assests/humidity.png';
 import ClearSky from '../../Assests/clear-sky.png';
 import Snowy from '../../Assests/snowy.png';
 import Storm from '../../Assests/storm.png';
-import Windy from '../../Assests/windy.png';
-import SearchIcon from '../../Assests/search-icon.png';
+import SearchBar from '../Search/SearchBar.js';
+import WeatherDisplay from '../WeatherDisplay/WeatherDisplay.js';
 
 const Weather = () => {
-  const InputRef = useRef();
   const [weatherData, setWeatherData] = useState(false);
 
   const API_KEY = '5d3bd771a4af8b668b109fe38e3ecd06';
@@ -25,7 +23,8 @@ const Weather = () => {
       "50d": Clouds, "50n": Clouds
     };
 
-    if (city === "") {
+    if (city === "") 
+    {
       alert("Please enter City Name.");
       return;
     }
@@ -34,7 +33,8 @@ const Weather = () => {
       const response = await fetch(url);
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok) 
+      {
         alert(data.message);
         return;
       }
@@ -58,30 +58,8 @@ const Weather = () => {
 
   return (
     <div className='weather'>
-      <div className='search-bar'>
-        <input ref={InputRef} type='text' placeholder='Search' />
-        <img src={SearchIcon} alt='Search Icon' onClick={() => search(InputRef.current.value)} />
-      </div>
-      <img src={weatherData.icon || ClearSky} alt='Weather Icon' className='weather-icon' />
-      <div className='weather-result'>
-        <div className='temperature'>{weatherData.temperature} °C</div>
-        <div className='location'>{weatherData.location}</div>
-      </div>
-
-      <div className='weather-data'>
-        <div className='col1'>
-          <img src={Humidity} alt='Humidity Icon' />
-          <div>
-            <p>{weatherData.humidity} Humidity</p>
-          </div>
-        </div>
-        <div className='col2'>
-          <img src={Windy} alt='Wind Icon' />
-          <div>
-            <p>{weatherData.windSpeed} Wind</p>
-          </div>
-        </div>
-      </div>
+      <SearchBar onSearch={search}/>
+      <WeatherDisplay weatherData={weatherData} />
     </div>
   );
 };
